@@ -29,8 +29,11 @@ if __name__ == '__main__':
                 continue
 
             fullpath = os.path.join(dirpath, filename)
+            print(fullpath)
 
-            soup = BeautifulSoup(open(fullpath),'lxml')
+            with open(fullpath,encoding='utf-8') as infile:
+                soup = BeautifulSoup(infile,'lxml')
+            
             block = soup.find('cipher-text')
 
             if block is None:
@@ -48,5 +51,5 @@ if __name__ == '__main__':
                 del block['data-password']
                 block.string = written.decode()
 
-                with open(fullpath, 'w') as f:
+                with open(fullpath,'w',encoding="utf-8") as f:
                     f.write(str(soup))
